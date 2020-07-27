@@ -6,12 +6,17 @@
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+    <h1>Teachable Machine Pose Model</h1>
+<button type="button" onclick="init()">Start</button>
+<div><canvas id="canvas"></canvas></div>
+<div id="label-container"></div>
 	<footer>
     We are using Node.js <span id="node-version"></span>,
     Chromium <span id="chrome-version"></span>,
     and Electron <span id="electron-version"></span>.
 </footer>
+<script src="tf.min.js"></script>
+<script src="teachablemachine-pose.min.js"></script>
+<script src="useModel.js"></script>
   </body>
 </html>

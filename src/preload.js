@@ -1,4 +1,4 @@
-const { Client } = require('node-osc');
+const { Client } = require('node-osc-wek');
 
 window.Client = Client;
 
