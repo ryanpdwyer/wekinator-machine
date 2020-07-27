@@ -48,7 +48,8 @@
     }
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "node-osc": "^5.1.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.52",
