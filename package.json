@@ -27,7 +27,7 @@
             "name": "ai_fys"
           },
           "platforms": [
-            "win"
+            "win32"
           ]
         },
         {
