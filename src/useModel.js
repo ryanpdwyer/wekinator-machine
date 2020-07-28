@@ -1,14 +1,30 @@
-const port = 6448;
-const client = new window.Client('127.0.0.1', port);
+
+
 
 // More API functions here:
 // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
 
 // the link to your model provided by Teachable Machine export panel
-const URL = "https://teachablemachine.withgoogle.com/models/4r858bxP0/";
-let model, webcam, ctx, labelContainer, maxPredictions;
+let model, webcam, ctx, labelContainer, maxPredictions, client, address, startTime;
+
+
+function startOSCClient(event) {
+    if (client) {
+        client.close();
+    }
+    const port = parseInt(document.getElementById("osc-port").value);
+    address = document.getElementById("osc-address").value;
+    client = new window.Client('127.0.0.1', port);
+    document.getElementById("tm-button").removeAttribute("disabled");
+}
+
+document.getElementById("osc-button").addEventListener('click', startOSCClient);
 
 async function init() {
+    let URL = document.getElementById("tm-url").value;
+    if (!URL.endsWith("/")){
+        URL = URL+"/";
+    }
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 
@@ -24,6 +40,7 @@ async function init() {
     webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
     await webcam.setup(); // request access to the webcam
     await webcam.play();
+    startTime = performance.now();
     window.requestAnimationFrame(loop);
 
     // append/get elements to the DOM
@@ -39,8 +56,14 @@ async function init() {
 async function loop(timestamp) {
     webcam.update(); // update the webcam frame
     const classified = await classifyInt();
-    client.send('/wek/inputs', classified);
-    window.requestAnimationFrame(loop);
+    client.send(address, classified);
+    const elapsed = timestamp - startTime;
+    if (elapsed < 60000) {
+        window.requestAnimationFrame(loop);
+    } else {
+        // Simple cleanup
+        webcam.stop();
+    }
 }
 
 async function predict() {

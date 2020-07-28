@@ -2,21 +2,24 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>AI for Everyone</title>
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <h1>Teachable Machine Pose Model</h1>
-<button type="button" onclick="init()">Start</button>
-<div><canvas id="canvas"></canvas></div>
-<div id="label-container"></div>
-	<footer>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-</footer>
-<script src="tf.min.js"></script>
-<script src="teachablemachine-pose.min.js"></script>
-<script src="useModel.js"></script>
+    <h1>Index</h1>
+    <div>
+      <p>
+        <a href="teachable-pose.html" rel="no-refresh">Teachable Pose</a> Use a Teachable Pose classifier trained on <a href="https://teachablemachine.withgoogle.com">Teachable Machine</a> with Wekinator inputs / outputs.
+      </p>
+      <p><a href="pose.html" rel="no-refresh">Use Pose</a> Choose what pose information (eyes, nose, wrists, etc...) to send to Wekinator</p>
+    </div>
+    <script src="jquery.min.js"></script>
+    <script>
+    // From https://stackoverflow.com/a/34503175
+    $(document).on('click', 'a[href^="http"]', function(event) {
+    event.preventDefault();
+    window.openExternal(this.href);
+});
+    </script>
   </body>
 </html>

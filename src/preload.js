@@ -1,6 +1,7 @@
 const { Client } = require('node-osc-wek');
 
 window.Client = Client;
+window.openExternal = require('electron').shell.openExternal;
 
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
