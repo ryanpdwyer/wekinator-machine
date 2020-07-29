@@ -7,6 +7,11 @@
 // the link to your model provided by Teachable Machine export panel
 let model, webcam, ctx, labelContainer, maxPredictions, client, address, startTime;
 
+// TO DO
+// Features: Add saving feature, named presets?
+// Split Position / Score inputs into two arrays since I have to filter them anyway
+
+
 function camelCaseToTitleCase(in_camelCaseString) {
         var result = in_camelCaseString                         // "ToGetYourGEDInTimeASongAboutThe26ABCsIsOfTheEssenceButAPersonalIDCardForUser456InRoom26AContainingABC26TimesIsNotAsEasyAs123ForC3POOrR2D2Or2R2D"
             .replace(/([a-z])([A-Z][a-z])/g, "$1 $2")           // "To Get YourGEDIn TimeASong About The26ABCs IsOf The Essence ButAPersonalIDCard For User456In Room26AContainingABC26Times IsNot AsEasy As123ForC3POOrR2D2Or2R2D"
@@ -84,8 +89,9 @@ function sendMessage(client, pose) {
     const positions = client.params.filter(x => !x.includes('score'));
 
     const scoresMessage = scores.map(x => keypointsObj[x].score);
-
-    client.send(client.address, ...scoresMessage);
+    const positionsMessage = positions.map( x => [keypointsObj[x].x, keypointsObj[x].y]);
+    const message = scoresMessage.concat(positionsMessage.flat());
+    client.send(client.address, ...message);
 
     // const keypoints = pose.keypoints.filter(x => client.params.any(p => p.includes(x.part)));
 
@@ -130,7 +136,7 @@ async function loop(timestamp) {
     }
     // client.send(address, message);
     // splat out the message using inputParams
-    if (elapsed < 60000) {
+    if (elapsed < 180000) {
         window.requestAnimationFrame(loop);
     } else {
         // Simple cleanup
