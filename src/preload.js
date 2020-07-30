@@ -2,6 +2,10 @@ const { Client } = require('node-osc-wek');
 
 const Nucleus = require('nucleus-nodejs');
 
+Nucleus.init('5f2224c4d0fd75181c446024', {
+  	disableInDev: true, 
+  });
+
 window.Client = Client;
 window.openExternal = require('electron').shell.openExternal;
 window.Nucleus = Nucleus;
@@ -24,9 +28,5 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${type}-version`, process.versions[type])
   }
 
-  Nucleus.init('5f2224c4d0fd75181c446024', {
-  	disableInDev: false, 
-  });
-  Nucleus.track("APP_LAUNCHED");
-  console.log("Nucleus done...")
+  Nucleus.appStarted();
 });

@@ -11,6 +11,7 @@ let model, webcam, ctx, labelContainer, maxPredictions, client, address, startTi
 // Features: Add saving feature, named presets?
 // Split Position / Score inputs into two arrays since I have to filter them anyway
 
+Nucleus.track("usePose");
 
 function camelCaseToTitleCase(in_camelCaseString) {
         var result = in_camelCaseString                         // "ToGetYourGEDInTimeASongAboutThe26ABCsIsOfTheEssenceButAPersonalIDCardForUser456InRoom26AContainingABC26TimesIsNotAsEasyAs123ForC3POOrR2D2Or2R2D"

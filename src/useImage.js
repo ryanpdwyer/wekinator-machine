@@ -7,6 +7,27 @@
 // the link to your model provided by Teachable Machine export panel
 let model, webcam, ctx, labelContainer, maxPredictions, client, address, startTime;
 
+Nucleus.track("useImage");
+
+
+const useImageDefaults = {
+    oscAddress: "/wek/inputs",
+    oscPort: 6448,
+    tmUrl: "https://teachablemachine.withgoogle.com/models/4r858bxP0/"
+};
+
+let initialStash = stash.get('useImage') || useImageDefaults;
+let myStash = initialStash;
+
+initPage(myStash);
+
+function initPage(state) {
+    document.getElementById("osc-port").value = state.oscPort;
+    document.getElementById("osc-address").value = state.oscAddress;
+    document.getElementById('tm-url').value = state.tmUrl;
+}
+
+document.getElementById("restore-defaults").addEventListener('click', () => initPage(useImageDefaults));
 
 function startOSCClient(event) {
     if (client) {
@@ -14,6 +35,9 @@ function startOSCClient(event) {
     }
     const port = parseInt(document.getElementById("osc-port").value);
     address = document.getElementById("osc-address").value;
+    myStash.oscAddress = address;
+    myStash.oscPort = port;
+    stash.set('useImage', myStash);
     client = new window.Client('127.0.0.1', port);
     document.getElementById("tm-button").removeAttribute("disabled");
 }
@@ -26,6 +50,8 @@ async function init() {
     if (!URL.endsWith("/")){
         URL = URL+"/";
     }
+    myStash.tmUrl = URL;
+    stash.set('useImage', myStash);
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 

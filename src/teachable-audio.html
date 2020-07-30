@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Teachable Audio - Wekinator Machine</title>
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
@@ -10,6 +10,8 @@
       <p><a href="index.html" rel="no-refresh">Home</a></p>
     </header>
     <h1>Teachable Machine Audio Model</h1>
+    <p>Use classifiers from a teachable machine audio model as Wekinator inputs / outputs.</p>
+    <button id="restore-defaults">Restore Defaults</button>
     <div>
       <h3>OSC</h3>
       <label for="osc-address">Address: </label>
@@ -32,6 +34,7 @@
     and Electron <span id="electron-version"></span>.
 </footer>
 <script src="tf.min.js"></script>
+<script src="js/stash.min.js"></script>
 <script src="util.js"></script>
 <script src="speech-commands.min.js"></script>
 <script src="useAudioModel.js"></script>

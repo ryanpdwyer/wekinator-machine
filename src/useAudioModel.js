@@ -1,6 +1,27 @@
 let client, address;
 
+Nucleus.track("useAudioModel");
 
+
+const stashDefaults = {
+    oscAddress: "/wek/inputs",
+    oscPort: 6448,
+    tmUrl: "https://teachablemachine.withgoogle.com/models/4r858bxP0/"
+};
+const pageStashName = 'useAudioModel';
+
+let initialStash = stash.get(pageStashName) || stashDefaults;
+let myStash = initialStash;
+
+initPage(myStash);
+
+function initPage(state) {
+    document.getElementById("osc-port").value = state.oscPort;
+    document.getElementById("osc-address").value = state.oscAddress;
+    document.getElementById('tm-url').value = state.tmUrl;
+}
+
+document.getElementById("restore-defaults").addEventListener('click', () => initPage(stashDefaults));
 
 function startOSCClient(event) {
     if (client) {
@@ -8,6 +29,9 @@ function startOSCClient(event) {
     }
     const port = parseInt(document.getElementById("osc-port").value);
     address = document.getElementById("osc-address").value;
+    myStash.oscAddress = address;
+    myStash.oscPort = port;
+    stash.set(pageStashName, myStash);
     client = new window.Client('127.0.0.1', port);
     document.getElementById("tm-button").removeAttribute("disabled");
 }
@@ -36,6 +60,8 @@ document.getElementById("osc-button").addEventListener('click', startOSCClient);
         if (!url.endsWith("/")){
             url = url+"/";
         }
+        myStash.tmUrl = URL;
+        stash.set(pageStashName, myStash);
 
         const recognizer = await createModel(url);
         const classLabels = recognizer.wordLabels(); // get class labels

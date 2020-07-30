@@ -2,34 +2,55 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>AI for Everyone</title>
+    <title>Wekinator Machine</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <h1>Teachable Machine for Wekinator</h1>
-    <p>Tools for using Google's <a href="https://teachablemachine.withgoogle.com">Teachable Machine</a> with <a href="http://www.wekinator.org">Wekinator</a>.</p>
-    <div class="card">
-<div class="card-body">
-  <h5>Teachable Machine Pose</h5>
-    <a href="teachable-pose.html" rel="no-refresh" class="stretched-link"></a> Use a Pose classifier with Wekinator.
+    <div class="container-md">
+          <h1 style="font-weight:bold;">Teachable Machine for Wekinator</h1>
+          <p>Tools for using Google's <a href="https://teachablemachine.withgoogle.com">Teachable Machine</a> with <a href="http://www.wekinator.org">Wekinator</a>.</p>
+
+<div class="row">
+<div class="col-sm-6">
+  <div class="card">
+          <div class="card-body">
+          <img class="card-img-top" src="img/teach-poses.png" alt="Pose estimation points that can be sent to Wekinator" width="220px" />
+          <h5>Teachable Machine Pose</h5>
+  <a href="teachable-pose.html" rel="no-refresh" class="stretched-link"></a> Use a Pose classifier with Wekinator.
+          </div>
   </div>
-    </div>
-<div class="card">
-<div class="card-body"><h5>Use Pose</h5>
-  <a href="pose.html" rel="no-refresh" class="stretched-link"></a> Choose what pose information (eyes, nose, wrists, etc...) to send to Wekinator.</div>
 </div>
-<div class="card">
-<div class="card-body">
-  <h5>Teachable Machine Image</h5>
-  <a href="teachable-image.html" rel="no-refresh" class="stretched-link"></a> Use an Image classifier with Wekinator.</div>
-</div>
-<div class="card">
+<div class="col-sm-6">
+  <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Teachable Machine Audio</h5>
-    <a href="teachable-audio.html" rel="no-refresh" class="stretched-link"></a> Use a Teachable Machine Audio classifier with Wekinator.
+    <img class="card-img-top" src="img/pose-example.png" alt="People posing, tracked by Teachable Machine" width="220px" />
+    <h5>Use Pose</h5>
+    <a href="pose.html" rel="no-refresh" class="stretched-link"></a> Choose what pose information (eyes, nose, wrists, etc...) to send to Wekinator.</div>
   </div>
 </div>
+</div>
+      <div class="row">
+<div class="col-sm-6">
+  <div class="card">
+    <div class="card-body">
+      <img class="card-img-top" src="img/teach-images.png" alt="Images tracked by Teachable Machine" width="220px" />
+    <h5>Teachable Machine Image</h5>
+    <a href="teachable-image.html" rel="no-refresh" class="stretched-link"></a> Use an Image classifier with Wekinator.
+    </div>
+  </div>
+</div>
+<div class="col-sm-6">
+  <div class="card">
+    <div class="card-body">
+      <img class="card-img-top" src="img/teach-sounds.png" alt="Sounds tracked by Teachable Machine" width="220px" />
+      <h5 class="card-title">Teachable Machine Audio</h5>
+      <a href="teachable-audio.html" rel="no-refresh" class="stretched-link"></a> Use a Teachable Machine Audio classifier with Wekinator.
+    </div>
+  </div>
+</div>
+      </div>
+          </div>
     </div>
     <script src="jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
