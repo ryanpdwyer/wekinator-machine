@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>AI for Everyone</title>
+    <title>Hello World!</title>
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
     <header>
       <p><a href="index.html" rel="no-refresh">Home</a></p>
     </header>
-    <h1>Teachable Machine Pose Model</h1>
+    <h1>Teachable Machine Audio Model</h1>
     <div>
       <h3>OSC</h3>
       <label for="osc-address">Address: </label>
@@ -21,7 +21,7 @@
     <div>
       <h3>Teachable Machine</h3>
       <label for="tm-url">Url:</label>
-      <input type="text" id="tm-url" name="tm-url" size="60" value="https://teachablemachine.withgoogle.com/models/4r858bxP0/"/>
+      <input type="text" id="tm-url" name="tm-url" size="60" value="https://teachablemachine.withgoogle.com/models/GW6h-d8P0/"/>
 <button type="button" onclick="init()" id="tm-button" disabled>Start Teachable Machine</button>
 </div>
 <div><canvas id="canvas"></canvas></div>
@@ -31,9 +31,9 @@
     Chromium <span id="chrome-version"></span>,
     and Electron <span id="electron-version"></span>.
 </footer>
-<script src="util.js"></script>
 <script src="tf.min.js"></script>
-<script src="teachablemachine-pose.min.js"></script>
-<script src="useModel.js"></script>
+<script src="util.js"></script>
+<script src="speech-commands.min.js"></script>
+<script src="useAudioModel.js"></script>
   </body>
 </html>

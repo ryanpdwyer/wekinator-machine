@@ -1,7 +1,16 @@
 const { Client } = require('node-osc-wek');
 
+const Nucleus = require('nucleus-nodejs');
+
 window.Client = Client;
 window.openExternal = require('electron').shell.openExternal;
+window.Nucleus = Nucleus;
+
+// See https://github.com/electron-userland/devtron
+if (process.env.NODE_ENV === 'development') {
+	window.require = require;
+	window.process = process;
+}
 
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
@@ -14,4 +23,10 @@ window.addEventListener('DOMContentLoaded', () => {
   for (const type of ['chrome', 'node', 'electron']) {
     replaceText(`${type}-version`, process.versions[type])
   }
-})
+
+  Nucleus.init('5f2224c4d0fd75181c446024', {
+  	disableInDev: false, 
+  });
+  Nucleus.track("APP_LAUNCHED");
+  console.log("Nucleus done...")
+});

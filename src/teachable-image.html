@@ -9,7 +9,7 @@
     <header>
       <p><a href="index.html" rel="no-refresh">Home</a></p>
     </header>
-    <h1>Teachable Machine Pose Model</h1>
+    <h1>Teachable Machine Image Model</h1>
     <div>
       <h3>OSC</h3>
       <label for="osc-address">Address: </label>
@@ -21,10 +21,12 @@
     <div>
       <h3>Teachable Machine</h3>
       <label for="tm-url">Url:</label>
-      <input type="text" id="tm-url" name="tm-url" size="60" value="https://teachablemachine.withgoogle.com/models/4r858bxP0/"/>
+      <input type="text" id="tm-url" name="tm-url" size="60" value="https://teachablemachine.withgoogle.com/models/qYFmdaiJo/"/>
 <button type="button" onclick="init()" id="tm-button" disabled>Start Teachable Machine</button>
 </div>
-<div><canvas id="canvas"></canvas></div>
+<div id="webcam-container">
+  <canvas id="canvas"></canvas>
+</div>
 <div id="label-container"></div>
 	<footer>
     We are using Node.js <span id="node-version"></span>,
@@ -33,7 +35,7 @@
 </footer>
 <script src="util.js"></script>
 <script src="tf.min.js"></script>
-<script src="teachablemachine-pose.min.js"></script>
-<script src="useModel.js"></script>
+<script src="teachablemachine-image.min.js"></script>
+<script src="useImage.js"></script>
   </body>
 </html>

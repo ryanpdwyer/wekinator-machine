@@ -1,8 +1,8 @@
 {
-  "name": "ai-fys",
-  "productName": "ai-fys",
+  "name": "WekinatorMachine",
+  "productName": "Wekinator Machine",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Connect Google's Teachable Machine to Wekinator.",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -17,6 +17,9 @@
     "email": "ryanpdwyer@gmail.com"
   },
   "license": "MIT",
+  "build": {
+    "appId": "com.electron.wekinatormachine"
+  },
   "config": {
     "forge": {
       "packagerConfig": {},
@@ -24,7 +27,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "ai_fys"
+            "name": "Wekinator Machine"
           },
           "platforms": [
             "win32"
@@ -49,7 +52,8 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
-    "node-osc-wek": "^5.1.0"
+    "node-osc-wek": "^5.1.0",
+    "nucleus-nodejs": "^3.0.6"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.52",
@@ -57,6 +61,7 @@
     "@electron-forge/maker-rpm": "6.0.0-beta.52",
     "@electron-forge/maker-squirrel": "6.0.0-beta.52",
     "@electron-forge/maker-zip": "6.0.0-beta.52",
+    "devtron": "^1.4.0",
     "electron": "9.1.1",
     "jquery": "^3.5.1"
   }

@@ -47,6 +47,7 @@ async function init() {
     const canvas = document.getElementById("canvas");
     canvas.width = size; canvas.height = size;
     ctx = canvas.getContext("2d");
+    canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
     labelContainer = document.getElementById("label-container");
     for (let i = 0; i < maxPredictions; i++) { // and class labels
         labelContainer.appendChild(document.createElement("div"));
@@ -77,6 +78,7 @@ async function predict() {
         const classPrediction =
             prediction[i].className + ": " + prediction[i].probability.toFixed(2);
         labelContainer.childNodes[i].innerHTML = classPrediction;
+
     }
 
     // finally draw the poses
@@ -115,12 +117,20 @@ async function classifyInt() {
     // Prediction 2: run input through teachable machine classification model
     const prediction = await model.predict(posenetOutput);
 
+    const iMax = argMax(prediction.map(x => x.probability));
+
     const indices = Object.fromEntries(prediction.map((x, i) => [x.className, i+1]));
 
     for (let i = 0; i < maxPredictions; i++) {
         const classPrediction =
             prediction[i].className + ": " + prediction[i].probability.toFixed(2);
         labelContainer.childNodes[i].innerHTML = classPrediction;
+        if (iMax === i) {
+            labelContainer.childNodes[i].classList.add("chosen-class");
+        } else {
+            labelContainer.childNodes[i].classList.remove("chosen-class");
+        }
+
     }
 
     // finally draw the poses

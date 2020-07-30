@@ -3,22 +3,41 @@
   <head>
     <meta charset="UTF-8">
     <title>AI for Everyone</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <h1>Index</h1>
-    <div>
-      <p>
-        <a href="teachable-pose.html" rel="no-refresh">Teachable Pose</a> Use a Teachable Pose classifier trained on <a href="https://teachablemachine.withgoogle.com">Teachable Machine</a> with Wekinator inputs / outputs.
-      </p>
-      <p><a href="pose.html" rel="no-refresh">Use Pose</a> Choose what pose information (eyes, nose, wrists, etc...) to send to Wekinator</p>
+    <h1>Teachable Machine for Wekinator</h1>
+    <p>Tools for using Google's <a href="https://teachablemachine.withgoogle.com">Teachable Machine</a> with <a href="http://www.wekinator.org">Wekinator</a>.</p>
+    <div class="card">
+<div class="card-body">
+  <h5>Teachable Machine Pose</h5>
+    <a href="teachable-pose.html" rel="no-refresh" class="stretched-link"></a> Use a Pose classifier with Wekinator.
+  </div>
+    </div>
+<div class="card">
+<div class="card-body"><h5>Use Pose</h5>
+  <a href="pose.html" rel="no-refresh" class="stretched-link"></a> Choose what pose information (eyes, nose, wrists, etc...) to send to Wekinator.</div>
+</div>
+<div class="card">
+<div class="card-body">
+  <h5>Teachable Machine Image</h5>
+  <a href="teachable-image.html" rel="no-refresh" class="stretched-link"></a> Use an Image classifier with Wekinator.</div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Teachable Machine Audio</h5>
+    <a href="teachable-audio.html" rel="no-refresh" class="stretched-link"></a> Use a Teachable Machine Audio classifier with Wekinator.
+  </div>
+</div>
     </div>
     <script src="jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script>
     // From https://stackoverflow.com/a/34503175
     $(document).on('click', 'a[href^="http"]', function(event) {
-    event.preventDefault();
-    window.openExternal(this.href);
+      event.preventDefault();
+      window.openExternal(this.href);
 });
     </script>
   </body>
