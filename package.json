@@ -26,9 +26,6 @@
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "Wekinator Machine"
-          },
           "platforms": [
             "win32"
           ]
