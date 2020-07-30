@@ -13,6 +13,131 @@ let model, webcam, ctx, labelContainer, maxPredictions, client, address, startTi
 
 Nucleus.track("usePose");
 
+const makeLabels = id => `
+<label for="${id}">${camelCaseToTitleCase(id)}</label>
+<input type="checkbox" id="${id}" name="${id}"/>
+<input type="checkbox" id="${id}-score" name="${id}-score"/>`;
+
+const parts =  ["nose", "leftEye", "rightEye", "leftEar", "rightEar",
+"leftShoulder", "rightShoulder", "leftElbow", "rightElbow", "leftWrist",
+"rightWrist", "leftHip", "rightHip", "leftKnee", "rightKnee", "leftAnkle",
+"rightAnkle"];
+
+const header = `<span>Body Part</span><span>Position</span><span>Probability</span>\n`;
+
+$("#osc-part-grid").html(header+parts.map(makeLabels).join("\n"));
+
+const partsEls = parts.map(getId).concat(parts.map(x => getId(x+'-score')));
+
+const stashDefaults = {
+    oscAddress: "/wek/inputs",
+    oscPort: 6448,
+    checked: ['nose', 'nose-score'],
+};
+
+const defaultSavedStashes = {
+    'Nose': {
+        oscAddress: "/wek/inputs",
+        oscPort: 6448,
+        checked: ['nose', 'nose-score'],
+    },
+    'Face': {
+    oscAddress: "/wek/inputs",
+    oscPort: 6448,
+    checked: ['nose', 'nose-score', "leftEye", "rightEye", "leftEar", "rightEar",
+    "leftEye-score", "rightEye-score", "leftEar-score", "rightEar-score"]
+    },
+    'Upper Body': {
+        oscAddress: "/wek/inputs",
+        oscPort: 6448,
+        checked: ['nose', 'nose-score', "leftEye", "rightEye", "leftEar", "rightEar",
+        "leftEye-score", "rightEye-score", "leftEar-score", "rightEar-score",
+        "leftShoulder", "rightShoulder", "leftElbow", "rightElbow", "leftWrist",
+        "rightWrist", "leftShoulder-score", "rightShoulder-score", "leftElbow-score",
+        "rightElbow-score", "leftWrist-score", "rightWrist-score"]
+    },
+};
+
+const pageStashName = 'usePose';
+const pageSettingsStash = 'usePoseSettings';
+
+const initialStash = stash.get(pageStashName) || stashDefaults;
+const initialSettingsStash = Object.assign(defaultSavedStashes, stash.get(pageSettingsStash));
+let myStash = initialStash;
+const mySettingsStash = initialSettingsStash;
+
+initPage(myStash);
+updateSavedSettings(mySettingsStash);
+
+function updateSavedSettings(stash) {
+    const el = getId("formSettings");
+    const createOption = key => {
+        const opt = document.createElement('option');
+        opt.value=key;
+        opt.innerText=key;
+        return opt;
+    };
+    el.innerHTML = "";
+    Object.keys(stash).map(createOption).forEach(x => {el.append(x)});
+}
+
+function check(element) {
+    element.checked = true;
+}
+
+function uncheck(element) {
+    element.checked = false;
+}
+
+function getId(string) {
+    return document.getElementById(string);
+}
+
+function selectedStashHandler(event) {
+    const id = event.target.value;
+    myStash = mySettingsStash[id];
+    initPage(myStash);
+    getId("saveFormSettingsButton").disabled = true;
+}
+
+getId("formSettings").addEventListener('change', selectedStashHandler);
+
+$("#osc-form").change(event => {
+    getId('formSettings').selectedIndex = -1;
+    getId("saveFormSettingsButton").disabled = false;
+    });
+
+getId("saveFormSettingsButton").addEventListener('click', saveSettingsHandler);
+
+function initPage(state) {
+    document.getElementById("osc-port").value = state.oscPort;
+    document.getElementById("osc-address").value = state.oscAddress;
+    partsEls.map(uncheck);
+    state.checked.map(getId).map(check);
+}
+
+function saveSettingsHandler(event) {
+    const formInputs = $("#osc-form").serializeArray();
+    const isOscParam = (x) => x.name.includes('osc');
+    const oscParams = Object.fromEntries(
+                formInputs.filter(isOscParam).map(x=>[x.name, x.value]));
+    const inputParams = formInputs.filter(x=>!isOscParam(x)).map(x => x.name);
+    prompt({title: "Save Settings", label: "Enter a name for these settings:"})
+        .then(settingsName => {
+            const settings = {};
+            settings.oscPort = parseInt(oscParams['osc-port']);
+            settings.oscAddress = oscParams['osc-address'];
+            settings.checked = inputParams; // Update the checked boxes...
+            mySettingsStash[settingsName] = settings;
+            stash.set(pageSettingsStash, mySettingsStash);
+            updateSavedSettings(mySettingsStash);
+            getId('formSettings').selectedIndex = getId("formSettings").querySelectorAll("option").length-1; // New settings are the last choice.
+        })
+        .catch();
+    
+    
+}
+
 function camelCaseToTitleCase(in_camelCaseString) {
         var result = in_camelCaseString                         // "ToGetYourGEDInTimeASongAboutThe26ABCsIsOfTheEssenceButAPersonalIDCardForUser456InRoom26AContainingABC26TimesIsNotAsEasyAs123ForC3POOrR2D2Or2R2D"
             .replace(/([a-z])([A-Z][a-z])/g, "$1 $2")           // "To Get YourGEDIn TimeASong About The26ABCs IsOf The Essence ButAPersonalIDCard For User456In Room26AContainingABC26Times IsNot AsEasy As123ForC3POOrR2D2Or2R2D"
@@ -36,22 +161,6 @@ function camelCaseToTitleCase(in_camelCaseString) {
 }
 
 
-
-
-const makeLabels = id => `
-<label for="${id}">${camelCaseToTitleCase(id)}</label>
-<input type="checkbox" id="${id}" name="${id}"/>
-<input type="checkbox" id="${id}-score" name="${id}-score"/>`;
-
-const parts =  ["nose", "leftEye", "rightEye", "leftEar", "rightEar",
-"leftShoulder", "rightShoulder", "leftElbow", "rightElbow", "leftWrist",
-"rightWrist", "leftHip", "rightHip", "leftKnee", "rightKnee", "leftAnkle",
-"rightAnkle"];
-
-const header = `<span>Body Part</span><span>Position</span><span>Score</span>\n`;
-
-$("#osc-part-grid").html(header+parts.map(makeLabels).join("\n"));
-
 const testForm = '[{"name":"nose","value":"on"},{"name":"nose-score","value":"on"},{"name":"osc-address","value":"/wek/inputs"},{"name":"osc-port","value":"6448"}]';
 
 function handleOSCForm(event) {
@@ -61,19 +170,25 @@ function handleOSCForm(event) {
     const oscParams = Object.fromEntries(
                 formInputs.filter(isOscParam).map(x=>[x.name, x.value]));
     const inputParams = formInputs.filter(x=>!isOscParam(x)).map(x => x.name);
-    oscParams['osc-port'] = parseInt(oscParams['osc-port']);
-    startOSCClient(oscParams, inputParams);
+    myStash.oscPort = parseInt(oscParams['osc-port']);
+    myStash.oscAddress = oscParams['osc-address'];
+    myStash.checked = inputParams; // Update the checked boxes...
+    stash.set(pageStashName, myStash); // Always update the stash!
+    startOSCClient(oscParams, myStash, inputParams);
+    const scores = client.params.filter(x => x.includes('score')).map(x => x.split('-')[0]);
+    const positions = client.params.filter(x => !x.includes('score'));
+    getId("sending-info").innerText = `Sending ${scores.length + positions.length*2} values to ${myStash.oscAddress} port ${myStash.oscPort}: ${scores.map(x=>x+'.prob').join(" ")} ${positions.map(x=>x+".x"+" "+x+".y").join(" ")}`;
 }
 
 
-function startOSCClient(oscParams, inputParams) {
+
+function startOSCClient(oscParams, myStash, inputParams) {
     if (client) {
         client.close();
     }
-
     address = oscParams['osc-address'];
-    client = new window.Client('127.0.0.1', oscParams['osc-port']);
-    client.address = oscParams['osc-address'];
+    client = new window.Client('127.0.0.1', myStash.oscPort);
+    client.address = myStash.oscAddress;
     client.params = inputParams;
 }
 

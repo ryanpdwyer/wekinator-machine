@@ -51,6 +51,7 @@
     }
   },
   "dependencies": {
+    "electron-prompt": "^1.6.0",
     "electron-squirrel-startup": "^1.0.0",
     "node-osc-wek": "^5.1.0",
     "nucleus-nodejs": "^3.0.6"

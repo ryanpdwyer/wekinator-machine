@@ -9,6 +9,7 @@ Nucleus.init('5f2224c4d0fd75181c446024', {
 window.Client = Client;
 window.openExternal = require('electron').shell.openExternal;
 window.Nucleus = Nucleus;
+window.prompt = require('electron-prompt');
 
 // See https://github.com/electron-userland/devtron
 if (process.env.NODE_ENV === 'development') {
