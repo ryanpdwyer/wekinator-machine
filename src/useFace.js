@@ -102,7 +102,7 @@ function sendMessage(client, pose) {
 const poseContainer = document.getElementById("pose-container");
 
 async function init() {
-    // load the handtrack model
+    // load the facetrack model
     model = await facemesh.load();
 
     // Convenience function to setup a webcam

@@ -6,7 +6,7 @@ const handpose = require('@tensorflow-models/handpose');
 
 const nPose = require("@teachablemachine/pose");
 
-const tfCore = require('@tensorflow/tfjs-core');
+const tf = require('@tensorflow/tfjs-node');
 
 const facemesh = require('@tensorflow-models/facemesh');
 
@@ -20,7 +20,8 @@ window.Nucleus = Nucleus;
 window.prompt = require('electron-prompt');
 window.handpose = handpose;
 window.nPose = nPose;
-window.tfCore = tfCore;
+window.tfCore = tf;
+window.tf = tf;
 window.facemesh = facemesh;
 
 // See https://github.com/electron-userland/devtron
