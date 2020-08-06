@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hand Tracking - Wekinator Machine</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <header>
+      <p><a href="index.html" rel="no-refresh">Home</a></p>
+    </header>
+    <h1>Hand Model</h2>
+    <p>Run Tensorflow.js hand model and use the location and dimensions of the bounding box, and the model's confidence as Wekinator inputs / outputs.</p>
+    <div>
+      <h3>OSC</h3>
+      <form id="osc-form">
+      <label for="osc-address">Address: </label>
+      <input type="text" id="osc-address" name="osc-address"/>
+      <label for="osc-port">Port: </label>
+      <input type="number" id="osc-port" name="osc-port"/>
+      <button type="submit" id="osc-button">Start OSC</button>
+      </form>
+      <p id="sending-info"></p>
+    </div>
+    <div>
+      <h3>Hand Tracking</h3>
+<button type="button" onclick="init()" id="tm-button">Start</button>
+</div>
+<div id="canvas-wrapper">
+    <canvas id="canvas" width="400" height="400"></canvas>
+<div id="pose-container"></div>
+	<footer>
+    We are using Node.js <span id="node-version"></span>,
+    Chromium <span id="chrome-version"></span>,
+    and Electron <span id="electron-version"></span>.
+</footer>
+<script src="js/stash.min.js"></script>
+<script src="jquery.min.js"></script>
+<script src="useHandBox.js"></script>
+  </body>
+</html>
