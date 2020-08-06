@@ -1,7 +1,7 @@
 {
   "name": "WekinatorMachine",
   "productName": "Wekinator Machine",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Connect Google's Teachable Machine to Wekinator.",
   "main": "src/index.js",
   "scripts": {
