@@ -2,6 +2,10 @@ const { Client } = require('node-osc-wek');
 
 const Nucleus = require('nucleus-nodejs');
 
+const handpose = require('@tensorflow-models/handpose');
+
+const nPose = require("@teachablemachine/pose");
+
 Nucleus.init('5f2224c4d0fd75181c446024', {
   	disableInDev: true, 
   });
@@ -10,6 +14,8 @@ window.Client = Client;
 window.openExternal = require('electron').shell.openExternal;
 window.Nucleus = Nucleus;
 window.prompt = require('electron-prompt');
+window.handpose = handpose;
+window.nPose = nPose;
 
 // See https://github.com/electron-userland/devtron
 if (process.env.NODE_ENV === 'development') {
