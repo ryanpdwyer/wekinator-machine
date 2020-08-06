@@ -10,6 +10,11 @@ body {
 	grid-template-columns: 130px 80px 80px;
 }
 
+#osc-hand-grid {
+	display: grid;
+	grid-template-columns: 130px 80px;
+}
+
 .grid-container > span {
 	font-weight: bold;
 }
@@ -24,6 +29,15 @@ body {
     } 
 .card {
 	margin: 0.25rem 0.25rem 0.25rem 0.25rem !important;
+}
+
+#canvas-wrapper {
+  position: relative;
+}
+
+#canvas-wrapper, #scatter-gl-container {
+  display: inline-block;
+  vertical-align: top;
 }
 
 /* .grid-card {
