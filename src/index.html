@@ -17,7 +17,7 @@
           <div class="card-body">
           <img class="card-img-top" src="img/teach-poses.png" alt="Pose estimation points that can be sent to Wekinator" width="220px" />
           <h5>Teachable Machine Pose</h5>
-  <a href="teachable-pose.html" rel="no-refresh" class="stretched-link"></a> Use a Pose classifier with Wekinator.
+  <a href="#" data-ref="teachable-pose.html" class="stretched-link internal-link"></a> Use a Pose classifier with Wekinator.
           </div>
   </div>
 </div>
@@ -26,7 +26,7 @@
   <div class="card-body">
     <img class="card-img-top" src="img/pose-example.png" alt="People posing, tracked by Teachable Machine" width="220px" />
     <h5>Track Pose</h5>
-    <a href="pose.html" rel="no-refresh" class="stretched-link"></a> Choose what pose information (eyes, nose, wrists, etc...) to send to Wekinator.</div>
+    <a href="#" data-ref="pose.html" class="stretched-link internal-link"></a> Choose what pose information (eyes, nose, wrists, etc...) to send to Wekinator.</div>
   </div>
 </div>
 </div>
@@ -36,7 +36,7 @@
     <div class="card-body">
       <img class="card-img-top" src="img/teach-images.png" alt="Images tracked by Teachable Machine" width="220px" />
     <h5>Teachable Machine Image</h5>
-    <a href="teachable-image.html" rel="no-refresh" class="stretched-link"></a> Use an Image classifier with Wekinator.
+    <a href="#" data-ref="teachable-image.html" class="stretched-link internal-link"></a> Use an Image classifier with Wekinator.
     </div>
   </div>
 </div>
@@ -45,7 +45,7 @@
     <div class="card-body">
       <img class="card-img-top" src="img/teach-sounds.png" alt="Sounds tracked by Teachable Machine" width="220px" />
       <h5 class="card-title">Teachable Machine Audio</h5>
-      <a href="teachable-audio.html" rel="no-refresh" class="stretched-link"></a> Use a Teachable Machine Audio classifier with Wekinator.
+      <a href="#" data-ref="teachable-audio.html" class="stretched-link internal-link"></a> Use a Teachable Machine Audio classifier with Wekinator.
     </div>
   </div>
 </div>
@@ -54,7 +54,7 @@
     <div class="card-body">
       <img class="card-img-top" src="img/teach-sounds.png" alt="Sounds tracked by Teachable Machine" width="220px" />
       <h5 class="card-title">Track Palm</h5>
-      <a href="hand-box.html" rel="no-refresh" class="stretched-link"></a> Send the location of your palm from the webcam to Wekinator.
+      <a href="#" data-ref="hand-box.html" class="stretched-link internal-link"></a> Send the location of your palm from the webcam to Wekinator.
     </div>
   </div>
 </div>
@@ -63,7 +63,7 @@
     <div class="card-body">
       <img class="card-img-top" src="img/teach-sounds.png" alt="Sounds tracked by Teachable Machine" width="220px" />
       <h5 class="card-title">Track Hand</h5>
-      <a href="hand2.html" rel="no-refresh" class="stretched-link"></a> Choose what hand position information to send from the webcam to Wekinator.
+      <a href="#" data-ref="hand2.html" class="stretched-link internal-link"></a> Choose what hand position information to send from the webcam to Wekinator.
     </div>
   </div>
 </div>
@@ -72,7 +72,7 @@
     <div class="card-body">
       <img class="card-img-top" src="img/teach-sounds.png" alt="Sounds tracked by Teachable Machine" width="220px" />
       <h5 class="card-title">Track Face</h5>
-      <a href="face.html" rel="no-refresh" class="stretched-link"></a> Send face tracking points from webcam to Wekinator.
+      <a href="#" data-ref="face.html" class="stretched-link internal-link"></a> Send face tracking points from webcam to Wekinator.
     </div>
   </div>
 </div>
@@ -81,7 +81,7 @@
     <div class="card-body">
       <img class="card-img-top" src="img/teach-sounds.png" alt="Sounds tracked by Teachable Machine" width="220px" />
       <h5 class="card-title">Output Music</h5>
-      <a href="music.html" rel="no-refresh" class="stretched-link"></a> Use music generated with Magenta as a Wekinator output.
+      <a href="music.html" class="stretched-link internal-link"></a> Use music generated with Magenta as a Wekinator output.
     </div>
   </div>
 </div> -->
@@ -95,6 +95,10 @@
     $(document).on('click', 'a[href^="http"]', function(event) {
       event.preventDefault();
       window.openExternal(this.href);
+});
+$(document).on('click', 'a.internal-link', function(event) {
+      event.preventDefault();
+      invoke('new-window', this.dataset.ref);
 });
     </script>
   </body>

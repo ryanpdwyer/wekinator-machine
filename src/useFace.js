@@ -73,7 +73,7 @@ function handleOSCForm(event) {
     myStash.oscAddress = oscParams['osc-address'];
     stash.set(pageStashName, myStash); // Always update the stash!
     startOSCClient(oscParams, myStash);
-    getId("sending-info").innerText = `Sending 872 values to ${myStash.oscAddress} port ${myStash.oscPort}`;
+    getId("sending-info").innerText = `Sending 932 values to ${myStash.oscAddress} port ${myStash.oscPort}`;
 
 }
 

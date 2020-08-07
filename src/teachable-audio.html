@@ -7,7 +7,10 @@
   </head>
   <body>
     <header>
-      <p><a href="index.html" rel="no-refresh">Home</a></p>
+    <nav class="nav">
+      <a href="index.html" rel="no-refresh" class="nav-link">Home</a>
+   <a href="#" id="new-window" class="nav-link">New Window</a>
+    </nav>
     </header>
     <h1>Teachable Machine Audio Model</h1>
     <p>Use classifiers from a teachable machine audio model as Wekinator inputs / outputs.</p>
@@ -33,8 +36,8 @@
     Chromium <span id="chrome-version"></span>,
     and Electron <span id="electron-version"></span>.
 </footer>
-<script src="tf.min.js"></script>
 <script src="js/stash.min.js"></script>
+<script src="tf.min.js"></script>
 <script src="util.js"></script>
 <script src="speech-commands.min.js"></script>
 <script src="useAudioModel.js"></script>

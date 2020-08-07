@@ -7,7 +7,10 @@
   </head>
   <body>
     <header>
-      <p><a href="index.html" rel="no-refresh">Home</a></p>
+    <nav class="nav">
+      <a href="index.html" rel="no-refresh" class="nav-link">Home</a>
+   <a href="#" id="new-window" class="nav-link">New Window</a>
+    </nav>
     </header>
     <h1>Pose Model</h2>
     <p>Run Teachable Machine's pose model and use body part positions and probabilities as Wekinator inputs / outputs.</p>
@@ -39,10 +42,10 @@
     Chromium <span id="chrome-version"></span>,
     and Electron <span id="electron-version"></span>.
 </footer>
-<script src="tf.min.js"></script>
 <script src="js/stash.min.js"></script>
 <script src="teachablemachine-pose.min.js"></script>
 <script src="jquery.min.js"></script>
+<script src="util.js"></script>
 <script src="usePose.js"></script>
-  </body>
+</body>
 </html>

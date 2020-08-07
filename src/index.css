@@ -40,6 +40,11 @@ body {
   vertical-align: top;
 }
 
+a.nav-link {
+  padding: 8px;
+  font-size: 18px;
+}
+
 /* .grid-card {
 	display: grid;
 	grid-template-columns: 250px 250px 250px;

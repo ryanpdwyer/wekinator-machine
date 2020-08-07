@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 
 console.log(app.getName());
@@ -8,15 +8,68 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
   app.quit();
 }
 
+
+const preLoadFiles = {
+  "index.html": "preload.js",
+  "teachable-pose.html": "preload-tm-only.js",
+  "teachable-image.html": "preload-tm-only.js",
+  "teachable-audio.html": "preload-tm-only.js",
+  "pose.html": "preload-tm-only.js",
+  "face.html": "preload.js",
+  "hand2.html": "preload.js",
+  "hand-box.html": "preload.js"
+};
+
+ipcMain.handle('new-window', async (event, arg) => {
+
+    const callingWindow = BrowserWindow.getFocusedWindow();
+    const windowBounds = callingWindow.getBounds();
+
+  
+  const mainWindow = new BrowserWindow({
+    width: windowBounds.width,
+    height: windowBounds.height,
+    x: windowBounds.x,
+    y: windowBounds.y,
+    webPreferences: {
+      preload: path.join(__dirname, preLoadFiles[arg])
+    }
+  });
+
+  // and load the index.html of the app.
+  mainWindow.loadFile(path.join(__dirname, arg));
+
+  callingWindow.close();
+})
+
+ipcMain.handle('new-home-window', async (event) => {
+  
+  const mainWindow = new BrowserWindow({
+    width: 900,
+    height: 700,
+    webPreferences: {
+      preload: path.join(__dirname, preLoadFiles['index.html'])
+    }
+  });
+
+  // and load the index.html of the app.
+  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+
+})
+
+
+
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 700,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, preLoadFiles['index.html'])
     }
   });
+
+  let menu = Menu.getApplicationMenu();
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));

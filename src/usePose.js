@@ -225,13 +225,13 @@ async function init() {
 
     // load the model and metadata
     // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-    // Note: the pose library adds a tmPose object to your window (window.tmPose)
-    model = await tmPose.load(modelURL, metadataURL);
+    // Note: the pose library adds a nPose object to your window (window.nPose)
+    model = await nPose.load(modelURL, metadataURL);
 
     // Convenience function to setup a webcam
     const size = 400;
     const flip = true; // whether to flip the webcam
-    webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
+    webcam = new nPose.Webcam(size, size, flip); // width, height, flip
     await webcam.setup(); // request access to the webcam
     await webcam.play();
     startTime = performance.now();
@@ -293,8 +293,8 @@ function drawPose(pose) {
         // draw the keypoints and skeleton
         if (pose) {
             const minPartConfidence = 0.5;
-            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
-            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+            nPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+            nPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
         }
     }
 }
