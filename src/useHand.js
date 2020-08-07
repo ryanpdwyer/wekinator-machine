@@ -303,16 +303,17 @@ async function init() {
 async function loop(timestamp) {
     webcam.update(); // update the webcam frame
     const elapsed = timestamp - startTime;
-    ctx.drawImage(webcam.canvas, 0, 0);
     pose = await model.estimateHands(canvas);
 
 
     // Lots of stuff in here:
 
-    
-    if (client && pose && Array.isArray(pose) && pose.length > 0) {
-        sendMessage(client, pose);
+    ctx.drawImage(webcam.canvas, 0, 0);
+    if (pose && Array.isArray(pose) && pose.length > 0) {
         drawKeypoints(ctx, pose[0].landmarks, pose[0].annotations);
+        if (client ) {
+            sendMessage(client, pose);
+        }
     }
 
 

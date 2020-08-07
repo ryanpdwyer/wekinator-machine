@@ -93,11 +93,13 @@ async function loop(timestamp) {
     webcam.update(); // update the webcam frame
     const elapsed = timestamp - startTime;
     ctx.drawImage(webcam.canvas, 0, 0);
-    const image = tfCore.tidy(() => {
-        return tfCore.browser.fromPixels(webcam.canvas).toFloat().expandDims(0);
-      });
-  
-    pose = await handDetector.estimateHandBounds(image);
+    const image = tfCore.tidy(() => tfCore.browser.fromPixels(webcam.canvas).toFloat().expandDims(0));
+    
+    try {
+        pose = await handDetector.estimateHandBounds(image);
+    } finally {
+        image.dispose();
+    }
 
     
 
