@@ -7,7 +7,7 @@ const handpose = require('@tensorflow-models/handpose');
 
 const nPose = require("@teachablemachine/pose");
 
-const tf = require('@tensorflow/tfjs-node');
+const tf = require('@tensorflow/tfjs');
 
 const facemesh = require('@tensorflow-models/facemesh');
 

@@ -1,7 +1,7 @@
 {
   "name": "WekinatorMachine",
   "productName": "Wekinator Machine",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Connect Google's Teachable Machine to Wekinator.",
   "main": "src/index.js",
   "scripts": {
@@ -57,10 +57,9 @@
     "@teachablemachine/pose": "^0.8.6",
     "@tensorflow-models/facemesh": "0.0.3",
     "@tensorflow-models/handpose": "0.0.5",
-    "@tensorflow/tfjs": "^1.3.1",
+    "@tensorflow/tfjs": "^1.7.4",
     "@tensorflow/tfjs-converter": "^1.7.4",
     "@tensorflow/tfjs-core": "^1.7.4",
-    "@tensorflow/tfjs-node": "^1.7.4",
     "electron-prompt": "^1.6.0",
     "electron-squirrel-startup": "^1.0.0",
     "node-osc-wek": "^5.1.0",
