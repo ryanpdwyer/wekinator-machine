@@ -39,6 +39,24 @@ const faceAreas = [
     'rightCheek',        'leftCheek'
   ];
 
+  const displayAreas = [
+    'silhouette',        'lipsUpperOuter',
+    'lipsLowerOuter',    'lipsUpperInner',
+    'lipsLowerInner',    'rightEyeUpper0',
+    'rightEyeLower0',    'rightEyeUpper1',
+    'rightEyeLower1',    'rightEyeUpper2',
+    'rightEyeLower2',    'rightEyeLower3',
+    'rightEyebrowUpper', 'rightEyebrowLower',
+    'leftEyeUpper0',     'leftEyeLower0',
+    'leftEyeUpper1',     'leftEyeLower1',
+    'leftEyeUpper2',     'leftEyeLower2',
+    'leftEyeLower3',     'leftEyebrowUpper',
+    'leftEyebrowLower',  'midwayBetweenEyes', 
+    'noseBottom',
+    'noseRightCorner',   'noseLeftCorner',
+    'rightCheek',        'leftCheek'
+  ];
+
   function toggleFacePoints(event) {
     const text = {true: "Hide Face Points", false: "Show Face Points"};
     showFacePoints = !showFacePoints;
@@ -73,7 +91,7 @@ function handleOSCForm(event) {
     myStash.oscAddress = oscParams['osc-address'];
     stash.set(pageStashName, myStash); // Always update the stash!
     startOSCClient(oscParams, myStash);
-    getId("sending-info").innerText = `Sending 932 values to ${myStash.oscAddress} port ${myStash.oscPort}`;
+    getId("sending-info").innerText = `Sending 456 values to ${myStash.oscAddress} port ${myStash.oscPort}`;
 
 }
 
@@ -92,9 +110,12 @@ function startOSCClient(oscParams, myStash) {
 $("#osc-form").submit(handleOSCForm);
 
 function sendMessage(client, pose) {
-    const face2D = pose[0].scaledMesh.map(x => x.slice(0,2));
+    const nose = pose[0].annotations['noseTip'][0].slice(0, 2);
+    const face2D = displayAreas.map(x => pose[0].annotations[x]
+                    .map(y => [y[0]-nose[0], y[1]-nose[1]]))
+                    .flat(3);
 
-    client.send(client.address, ...face2D);
+    client.send(client.address, ...nose, ...face2D);
 }
 
 // document.getElementById("osc-button").addEventListener('click', startOSCClient);
@@ -133,7 +154,7 @@ async function loop(timestamp) {
     if (pose && Array.isArray(pose) && pose.length > 0) {
         if (showFacePoints) {
         pose.forEach(face => {
-            drawKeypoints(ctx, face.scaledMesh)
+            drawSomeKeypoints(ctx, face.annotations)
         });
         }
         if (client) {
@@ -152,28 +173,6 @@ async function loop(timestamp) {
     }
 }
 
-// async function estimatePose() {
-//     // Prediction #1: run input through posenet
-
-
-//     if (pose) {
-
-//     poseContainer.innerHTML = "";
-
-//     const html = pose.keypoints.forEach(x => {
-//         const p = document.createElement('p');
-//         p.innerText = row(x);
-//         poseContainer.appendChild(p);
-//     });
-
-//     }
-
-//     drawPose(pose);
-
-//     return pose;
-// }
-
-
 function drawPoint(ctx, y, x, r) {
     ctx.fillRect(x, y, r, r);
   }
@@ -184,4 +183,15 @@ function drawKeypoints(ctx, keypoints) {
       const x = keypoints[i][1];
       drawPoint(ctx, x - 2, y - 2, 1);
     }
+}
+
+
+function drawSomeKeypoints(ctx, annotations) {
+    ctx.globalAlpha = 0.8;
+    displayAreas.forEach(x => 
+        annotations[x].forEach(keypoint => 
+            {
+                drawPoint(ctx, keypoint[1]-2, keypoint[0]-2, 2);
+            }));
+    ctx.globalAlpha = 1;
 }
