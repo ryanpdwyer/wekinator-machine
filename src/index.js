@@ -17,7 +17,8 @@ const preLoadFiles = {
   "pose.html": "preload-tm-only.js",
   "face.html": "preload.js",
   "hand2.html": "preload.js",
-  "hand-box.html": "preload.js"
+  "hand-box.html": "preload.js",
+  "music.html": "preload.js"
 };
 
 ipcMain.handle('new-window', async (event, arg) => {
