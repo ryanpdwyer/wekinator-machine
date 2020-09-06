@@ -90,7 +90,7 @@ async function loop(timestamp) {
     if (webcam.canvas) {
         ctx.drawImage(webcam.canvas, 0, 0);
     }
-    if (elapsed < 180000) {
+    if (elapsed < 1800000) {
         window.requestAnimationFrame(loop);
     } else {
     // Simple cleanup

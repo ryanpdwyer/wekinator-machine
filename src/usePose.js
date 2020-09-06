@@ -252,7 +252,7 @@ async function loop(timestamp) {
     }
     // client.send(address, message);
     // splat out the message using inputParams
-    if (elapsed < 180000) {
+    if (elapsed < 1800000) {
         window.requestAnimationFrame(loop);
     } else {
         // Simple cleanup

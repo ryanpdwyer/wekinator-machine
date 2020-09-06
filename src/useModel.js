@@ -86,7 +86,7 @@ async function loop(timestamp) {
     const classified = await classifyInt();
     client.send(address, classified);
     const elapsed = timestamp - startTime;
-    if (elapsed < 180000) {
+    if (elapsed < 1800000) {
         window.requestAnimationFrame(loop);
     } else {
         // Simple cleanup
